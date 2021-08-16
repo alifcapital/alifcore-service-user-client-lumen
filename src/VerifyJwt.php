@@ -3,13 +3,16 @@
 
 use AlifCapital\UserServiceClient\Models\UserClientPublicKey;
 
+use Exception;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Utils;
 use GuzzleHttp\Exception\GuzzleException;
 
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Auth\AuthenticationException;
 
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
@@ -105,7 +108,11 @@ class VerifyJwt
         $getServiceName = config('user_client.service_name');
 
         $signer = new Sha256();
-        $token = (new Parser())->parse($jwt);
+        try {
+            $token = (new Parser())->parse($jwt);
+        }catch (Exception $e) {
+            throw (new AuthenticationException($e->getMessage()));
+        }
 
         $appRoles = (array) $token->getClaim('roles');
         $serviceExists = array_key_exists($getServiceName, $appRoles);
