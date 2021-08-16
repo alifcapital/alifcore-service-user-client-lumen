@@ -36,6 +36,7 @@ class VerifyJwt
             ]);
         } catch (GuzzleException $e) {
             Log::error($e);
+            throw (new AuthenticationException($e->getMessage()));
         }
 
         if ($response->getStatusCode() === Response::HTTP_OK){
