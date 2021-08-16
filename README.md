@@ -8,7 +8,7 @@ Installation
 
 add this lines to composer.json file:
 ```php
-    composer require alifcapital/alifcore-service-user-client-lumen   
+composer require alifcapital/alifcore-service-user-client-lumen   
 ```
 
 add this line in Register Service Providers section (bootstrap/app.php):
@@ -36,9 +36,9 @@ $app->configure('user_client');
 
 add this line in Environments (.env):
 ```dotenv
-    USER_CLIENT_SERVICE_NAME=alif-shop-settings #(every service had unique service_name)
-    USER_SERVICE_BASE_URL={url}/service_user #(URL of user service)
-    USER_CLIENT_PUBLIC_KEY_TTL=60 #CACHE IN SECOUNDS 
+USER_CLIENT_SERVICE_NAME=alif-shop-settings #(every service had unique service_name)
+USER_SERVICE_BASE_URL={url}/service_user #(URL of user service)
+USER_CLIENT_PUBLIC_KEY_TTL=60 #CACHE IN SECOUNDS 
 ```
 
 migrate:
