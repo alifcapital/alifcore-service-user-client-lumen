@@ -1,5 +1,6 @@
 <?php namespace AlifCapital\UserServiceClient;
 
+use AlifCapital\UserServiceClient\Auth\UserGeneric;
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use AlifCapital\UserServiceClient\Console\PublishConfigCommand;
 
@@ -7,6 +8,18 @@ class ServiceProvider extends BaseProvider
 {
     public function boot()
     {
+        $this->app['auth']->viaRequest('api', function ($request) {
+            $jwt = $request->bearerToken();
+            if($jwt && $verify = VerifyJwt::verifyToken($jwt)){
+                return new UserGeneric([
+                    'id' => $verify['id'],
+                    'username' => $verify['username'],
+                    'roles' => $verify['roles']
+                ]);
+            }
+            return null;
+        });
+
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
@@ -22,5 +35,6 @@ class ServiceProvider extends BaseProvider
         $this->commands(
             'command.user_client.publish-config',
         );
+
     }
 }
