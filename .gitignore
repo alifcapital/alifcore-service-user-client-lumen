@@ -5,6 +5,7 @@ Homestead.yaml
 .env
 .phpunit.result.cache
 /htdocs
+.DS_Store
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
