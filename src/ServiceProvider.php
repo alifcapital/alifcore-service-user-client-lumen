@@ -1,6 +1,4 @@
-<?php
-
-namespace AlifCapital\UserServiceClient;
+<?php namespace AlifCapital\UserServiceClient;
 
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use AlifCapital\UserServiceClient\Console\PublishConfigCommand;

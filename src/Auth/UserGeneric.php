@@ -1,7 +1,4 @@
-<?php
-
-
-namespace AlifCapital\UserServiceClient\Auth;
+<?php namespace AlifCapital\UserServiceClient\Auth;
 
 
 use Illuminate\Auth\GenericUser;

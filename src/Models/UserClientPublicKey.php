@@ -1,7 +1,4 @@
-<?php
-
-
-namespace AlifCapital\UserServiceClient\Models;
+<?php namespace AlifCapital\UserServiceClient\Models;
 
 
 use Illuminate\Database\Eloquent\Model;

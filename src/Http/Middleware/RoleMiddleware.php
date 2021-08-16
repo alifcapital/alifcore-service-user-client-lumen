@@ -1,13 +1,11 @@
-<?php
+<?php namespace AlifCapital\UserServiceClient\Http\Middleware;
 
 
-namespace AlifCapital\UserServiceClient\Http\Middleware;
-
-
-use AlifCapital\UserServiceClient\Traits\ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
+use AlifCapital\UserServiceClient\Traits\ApiResponse;
 
 class RoleMiddleware
 {

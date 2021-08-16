@@ -1,7 +1,4 @@
-<?php
-
-
-namespace AlifCapital\UserServiceClient\Console\Helpers;
+<?php namespace AlifCapital\UserServiceClient\Console\Helpers;
 
 use Illuminate\Console\Command;
 

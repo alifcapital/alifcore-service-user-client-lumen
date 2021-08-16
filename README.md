@@ -8,23 +8,7 @@ Installation
 
 add this lines to composer.json file:
 ```php
-     "repositories": [
-        {
-            "type":"package",
-            "package": {
-                "name": "alifcapital/alifcore-service-user-client-lumen",
-                "version":"master",
-                "source": {
-                    "url": "https://github.com/alifcapital/alifcore-service-user-client-lumen.git",
-                    "type": "git",
-                    "reference":"master"
-                }
-            }
-        }
-    ],
-    "require": {
-        "alifcapital/alifcore-service-user-client-lumen": "master"
-    }
+    composer require alifcapital/alifcore-service-user-client-lumen   
 ```
 
 add this line in Register Service Providers section (bootstrap/app.php):
@@ -33,7 +17,11 @@ add this line in Register Service Providers section (bootstrap/app.php):
 ```
 
 
-$app->register(AlifCapital\UserServiceClient\ServiceProvider::class);
 Configuration
 ============
-- Run `php artisan swagger-lume:publish-config` to publish configs (`config/swagger-lume.php`)
+- Run `php artisan user_client:publish-config` to publish configs (`config/user_client.php`)
+
+add this line in Register Service Providers section (bootstrap/app.php):
+```php
+    composer require alifcapital/alifcore-service-user-client-lumen   
+```

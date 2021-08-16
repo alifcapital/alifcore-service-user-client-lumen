@@ -1,7 +1,4 @@
-<?php
-
-
-namespace AlifCapital\UserServiceClient;
+<?php namespace AlifCapital\UserServiceClient;
 
 
 use AlifCapital\UserServiceClient\Models\UserClientPublicKey;

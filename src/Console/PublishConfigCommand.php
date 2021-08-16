@@ -1,9 +1,7 @@
-<?php
-
-
-namespace AlifCapital\UserServiceClient\Console;
+<?php namespace AlifCapital\UserServiceClient\Console;
 
 use Illuminate\Console\Command;
+
 use AlifCapital\UserServiceClient\Console\Helpers\Publisher;
 
 class PublishConfigCommand extends Command

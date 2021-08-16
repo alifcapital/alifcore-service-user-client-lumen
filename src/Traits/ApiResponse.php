@@ -1,11 +1,8 @@
-<?php
+<?php namespace AlifCapital\UserServiceClient\Traits;
 
 
-namespace AlifCapital\UserServiceClient\Traits;
-
-
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 trait ApiResponse
 {
