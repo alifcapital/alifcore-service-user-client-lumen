@@ -6,6 +6,7 @@ Homestead.yaml
 .phpunit.result.cache
 /htdocs
 .DS_Store
+composer.lock
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

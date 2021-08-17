@@ -29,7 +29,7 @@ class VerifyJwt
         $publicKeyUrl = config('user_client.user_service_url') . '/auth/public_key';
         try {
             $client = new Client(['timeout' => 2]);
-            $response = $client->request('GET', $publicKeyUrl, [
+            $response = $client->request('POST', $publicKeyUrl, [
                 'json' => [
                     'service_name' => config('user_client.service_name')
                 ]
