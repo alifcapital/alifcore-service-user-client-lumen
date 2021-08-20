@@ -1,7 +1,7 @@
 {
     "name": "alifcapital/lumen-user-service-client",
     "description": "Lumen client for https://github.com/alifcapital/alifcore-service-user",
-    "type": "package",
+    "type": "library",
     "authors": [
         {
             "name": "Mehrubon Khusaynov",
