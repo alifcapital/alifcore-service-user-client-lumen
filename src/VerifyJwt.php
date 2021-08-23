@@ -23,6 +23,7 @@ class VerifyJwt
 {
     /**
      * @throws GuzzleException
+     * @throws AuthenticationException
      */
     public static function getPublicKey(): ?string
     {
@@ -56,6 +57,7 @@ class VerifyJwt
     /**
      * @return mixed
      * @throws GuzzleException
+     * @throws AuthenticationException
      */
     public static function cachedPublicKey(): string
     {
@@ -100,7 +102,7 @@ class VerifyJwt
      * @param $jwt
      * @return array|null
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|AuthenticationException
      */
     public static function verifyToken($jwt): ?array
     {
@@ -111,11 +113,11 @@ class VerifyJwt
         $signer = new Sha256();
         try {
             $token = (new Parser())->parse($jwt);
+            $appRoles = (array) $token->getClaim('roles');
         }catch (Exception $e) {
             throw (new AuthenticationException($e->getMessage()));
         }
 
-        $appRoles = (array) $token->getClaim('roles');
         $serviceExists = array_key_exists($getServiceName, $appRoles);
         $verify = $token->verify($signer, $publicKey) && (! $token->isExpired());
 
