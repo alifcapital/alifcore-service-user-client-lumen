@@ -62,7 +62,7 @@ class VerifyJwt
     public static function cachedPublicKey(): string
     {
         $cacheKey = 'user_client_cached_public_key';
-        $cacheTTl = config('user_client.user_service_url');
+        $cacheTTl = config('user_client.public_key_ttl');
 
         if ($cache = Cache::get($cacheKey)) {
             return $cache;
