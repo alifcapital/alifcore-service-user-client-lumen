@@ -24,7 +24,7 @@ class RoleMiddleware
         $userRoles = auth()->user()->getRoles();
         $arrIntersect = array_intersect($accessRoles, $userRoles);
         if(count($arrIntersect) <= 0){
-            return $this->errorResponse(Response::HTTP_UNAUTHORIZED, Response::$statusTexts[Response::HTTP_UNAUTHORIZED]);
+            return $this->errorResponse(Response::HTTP_FORBIDDEN, Response::$statusTexts[Response::HTTP_FORBIDDEN]);
         }
         return $next($request);
     }
