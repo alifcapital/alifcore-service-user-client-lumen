@@ -2,6 +2,7 @@
 
 
 use AlifCapital\UserServiceClient\Models\UserClientPublicKey;
+use AlifCapital\UserServiceClient\Validation\Constraint\IsExpired;
 
 use Exception;
 
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Auth\AuthenticationException;
 
-use Lcobucci\JWT\Parser;
-use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 
 class VerifyJwt
@@ -89,7 +91,7 @@ class VerifyJwt
     {
         $userClientPublicKey = new UserClientPublicKey();
         $userClientPublicKey->where('status', UserClientPublicKey::STATUS_ACTIVE)->update([
-           'status' => UserClientPublicKey::STATUS_INACTIVE
+            'status' => UserClientPublicKey::STATUS_INACTIVE
         ]);
 
         $userClientPublicKey->public_key = $publicKey;
@@ -107,24 +109,35 @@ class VerifyJwt
     public static function verifyToken($jwt): ?array
     {
         $pub = static::cachedPublicKey();
-        $publicKey = new Key($pub);
+
+        $key = InMemory::plainText($pub);
+
+        $configuration = Configuration::forAsymmetricSigner(
+            new Sha256(),
+            InMemory::empty(),
+            $key
+        );
+
         $getServiceName = config('user_client.service_name');
 
-        $signer = new Sha256();
         try {
-            $token = (new Parser())->parse($jwt);
-            $appRoles = (array) $token->getClaim('roles');
+            $token = $configuration->parser()->parse($jwt);
+            $appRoles = (array) $token->claims()->get('roles');
         }catch (Exception $e) {
             throw (new AuthenticationException($e->getMessage()));
         }
 
         $serviceExists = array_key_exists($getServiceName, $appRoles);
-        $verify = $token->verify($signer, $publicKey) && (! $token->isExpired());
 
-        if ($serviceExists && $verify) {
+        $configuration->setValidationConstraints(
+            new SignedWith(new Sha256(), $key),
+            new IsExpired()
+        );
+
+        if ($configuration->validator()->validate($token, ...$configuration->validationConstraints())) {
             return [
-                'id' => $token->getClaim('sub'),
-                'username' => $token->getClaim('username'),
+                'id' => $token->claims()->get('sub'),
+                'username' => $token->claims()->get('username'),
                 'roles' => $appRoles[$getServiceName]
             ];
         }
