@@ -134,7 +134,7 @@ class VerifyJwt
             new IsExpired()
         );
 
-        if ($configuration->validator()->validate($token, ...$configuration->validationConstraints())) {
+        if ($serviceExists && $configuration->validator()->validate($token, ...$configuration->validationConstraints())) {
             return [
                 'id' => $token->claims()->get('sub'),
                 'username' => $token->claims()->get('username'),
